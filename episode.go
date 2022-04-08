@@ -13,10 +13,11 @@ type Episode struct {
 }
 
 var (
-	seasonStd     = regexp.MustCompile(`(?i)(\b|_)s(\d+)(e(\d+))(\b|_)`)
-	seasonCn      = regexp.MustCompile(`第([0-9零〇一二三四五六七八九十百千]+)[季]`)
-	episodeCn     = regexp.MustCompile(`第([0-9零〇一二三四五六七八九十百千]+)[集话卷回]`)
-	episodeSimple = regexp.MustCompile(`\[(\d+)]`)
+	seasonStd      = regexp.MustCompile(`(?i)(\b|_)s(\d+)(e(\d+))(\b|_)`)
+	seasonCn       = regexp.MustCompile(`第([0-9零〇一二三四五六七八九十百千]+)[季]`)
+	episodeCn      = regexp.MustCompile(`第([0-9零〇一二三四五六七八九十百千]+)[集话卷回]`)
+	episodeSimple  = regexp.MustCompile(`\[(\d+)]`)
+	episodeSimple2 = regexp.MustCompile(`[.](\d+)[.]`)
 )
 
 func ExtractEpisode(in string) (out string, episode Episode) {
@@ -45,6 +46,14 @@ func ExtractEpisode(in string) (out string, episode Episode) {
 	}
 	if episode.Episode == 0 {
 		out, submatch = extractStringSubmatch(episodeSimple, out)
+		if len(submatch) > 0 {
+			if s, ok := parseChineseNumber(submatch[1]); ok {
+				episode.Episode = s
+			}
+		}
+	}
+	if episode.Episode == 0 {
+		out, submatch = extractStringSubmatch(episodeSimple2, out)
 		if len(submatch) > 0 {
 			if s, ok := parseChineseNumber(submatch[1]); ok {
 				episode.Episode = s

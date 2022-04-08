@@ -103,7 +103,7 @@ var source = []*RegExpRule{
 }
 
 var sub = []*RegExpRule{
-	{Tag: "简体中文字幕", RegExp: regexp.MustCompile(`(?i)(\b|_)(chi|chs|gb)(\b|_)|[中简]\S*?(双语|外挂)?(字幕)|简体|简繁`)},
+	{Tag: "简体中文字幕", RegExp: regexp.MustCompile(`(?i)(\b|_)(chi|chs|gb)(\b|_)|[中简]\S*?((双语|外挂)(字幕)?|(双语|外挂)?(字幕))|简体|简繁`)},
 	{Tag: "繁体中文字幕", RegExp: regexp.MustCompile(`(?i)(\b|_)(big5|cht)(\b|_)|[繁]\S*?(字幕|双语|外挂)|繁体|繁體|简繁`)},
 	{Tag: "英语字幕", RegExp: regexp.MustCompile(`(?i)(\b|_)(eng)(\b|_)|[英]\S*?(字幕|双语|外挂)`)},
 	{Tag: "日语字幕", RegExp: regexp.MustCompile(`(?i)(\b|_)(jap|jp)(\b|_)|[日]\S*?(字幕|双语|外挂)`)},
