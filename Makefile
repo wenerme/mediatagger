@@ -1,6 +1,8 @@
 
 -include local.Makefile
 
+ci: cover
+
 .PHONY: lint
 lint: ## lint
 	golangci-lint run
