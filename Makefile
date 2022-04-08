@@ -13,3 +13,12 @@ fmt: tidy ## tidy,format and imports
 .PHONY: tidy
 tidy: ## go mod tidy
 	go mod tidy
+
+.PHONY: test
+test:
+	go test ./...
+
+.PHONY: cover
+cover:
+	go test -race -coverprofile=cover.out -coverpkg=./... ./...
+	go tool cover -html=cover.out -o cover.html
